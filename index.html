@@ -36,23 +36,23 @@
 </head>
 <body>
   <div class="nav left" onclick="prev()">&#10094;</div>
-  <img id="comic" src="wigs/1758606893028.jpg" alt="comic page">
+  <img id="comic" src="" alt="comic page">
   <div class="nav right" onclick="next()">&#10095;</div>
 
   <script>
-    // Список твоих файлов (надо перечислить все названия точно как в папке)
+    // Используем raw-ссылки с твоего репо
     const pages = [
-      "wigs/1758606893028.jpg",
-      "wigs/1758606897322.jpg",
-      "wigs/1758606901318.jpg",
-      "wigs/1758606904916.jpg",
-      "wigs/1758606909633.jpg",
-      "wigs/1758606932666.jpg",
-      "wigs/1758657357295.jpg",
-      "wigs/1758657439907.jpg",
-      "wigs/Что случилось_20250924_010356_0000.png",
-      "wigs/Это был всего лишь... кошмар_20250924_010642_0000.png",
-      "wigs/я рядом_20250924_010718_0000.png"
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606893028.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606897322.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606901318.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606904916.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606909633.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606932666.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758657357295.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758657439907.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/%D0%A7%D1%82%D0%BE%20%D1%81%D0%BB%D1%83%D1%87%D0%B8%D0%BB%D0%BE%D1%81%D1%8C_20250924_010356_0000.png",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/%D0%AD%D1%82%D0%BE%20%D0%B1%D1%8B%D0%BB%20%D0%B2%D1%81%D0%B5%D0%B3%D0%BE%20%D0%BB%D0%B8%D1%88%D1%8C...%20%D0%BA%D0%BE%D1%88%D0%BC%D0%B0%D1%80_20250924_010642_0000.png",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/%D1%8F%20%D1%80%D1%8F%D0%B4%D0%BE%D0%BC_20250924_010718_0000.png"
     ];
 
     let current = 0;
@@ -65,6 +65,9 @@
 
     function next() { showPage(current + 1); }
     function prev() { showPage(current - 1); }
+
+    // Показываем первую страницу при загрузке
+    showPage(0);
   </script>
 </body>
 </html>
