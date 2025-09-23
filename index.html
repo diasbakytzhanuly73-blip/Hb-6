@@ -9,14 +9,16 @@
       margin: 0;
       background: black;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
       overflow: hidden;
     }
     img {
       max-width: 100%;
-      max-height: 100%;
+      max-height: 100vh;
+      display: block;
+      margin: auto;
     }
     .nav {
       position: absolute;
@@ -26,42 +28,43 @@
       color: white;
       cursor: pointer;
       user-select: none;
+      padding: 0 20px;
     }
-    .prev { left: 10px; }
-    .next { right: 10px; }
+    .left { left: 0; }
+    .right { right: 0; }
   </style>
 </head>
 <body>
-  <span class="nav prev" onclick="prev()">&#10094;</span>
-  <img id="comic" src="">
-  <span class="nav next" onclick="next()">&#10095;</span>
+  <div class="nav left" onclick="prev()">&#10094;</div>
+  <img id="comic" src="wigs/1758606893028.jpg" alt="comic page">
+  <div class="nav right" onclick="next()">&#10095;</div>
 
   <script>
+    // Список твоих файлов (надо перечислить все названия точно как в папке)
     const pages = [
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758568408629.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606897322.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606901318.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606904916.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606916014.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606921571.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606927284.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606932666.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/page9.jpg"
+      "wigs/1758606893028.jpg",
+      "wigs/1758606897322.jpg",
+      "wigs/1758606901318.jpg",
+      "wigs/1758606904916.jpg",
+      "wigs/1758606909633.jpg",
+      "wigs/1758606932666.jpg",
+      "wigs/1758657357295.jpg",
+      "wigs/1758657439907.jpg",
+      "wigs/Что случилось_20250924_010356_0000.png",
+      "wigs/Это был всего лишь... кошмар_20250924_010642_0000.png",
+      "wigs/я рядом_20250924_010718_0000.png"
     ];
 
     let current = 0;
     const img = document.getElementById("comic");
-    img.src = pages[current];
 
-    function next() {
-      current = (current + 1) % pages.length;
+    function showPage(n) {
+      current = (n + pages.length) % pages.length;
       img.src = pages[current];
     }
 
-    function prev() {
-      current = (current - 1 + pages.length) % pages.length;
-      img.src = pages[current];
-    }
+    function next() { showPage(current + 1); }
+    function prev() { showPage(current - 1); }
   </script>
 </body>
 </html>
