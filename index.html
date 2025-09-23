@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      background: #000;
+      background: #111;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,48 +16,49 @@
     }
     img {
       max-width: 100%;
-      max-height: 100vh;
-      display: block;
-      margin: auto;
+      max-height: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
-    .nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 3em;
-      color: white;
-      cursor: pointer;
-      user-select: none;
-      padding: 10px;
-    }
-    .prev { left: 10px; }
-    .next { right: 10px; }
   </style>
 </head>
 <body>
-  <span class="nav prev" onclick="prevPage()">&#10094;</span>
-  <img id="comic" src="img/page1.jpg" alt="Страница 1">
-  <span class="nav next" onclick="nextPage()">&#10095;</span>
+  <img id="comic" src="img/1758568408629.jpg" alt="Страница комикса">
 
   <script>
-    let current = 1;
-    const total = 9; // 👉 количество страниц
+    // список твоих файлов
+    const pages = [
+      "img/1758568408629.jpg",
+      "img/1758606897322.jpg",
+      "img/1758606901318.jpg",
+      "img/1758606904916.jpg",
+      "img/1758606916014.jpg",
+      "img/1758606921571.jpg",
+      "img/1758606927284.jpg",
+      "img/175860692666.jpg",
+      "img/page9.jpg"
+    ];
+
+    let currentPage = 0;
     const comic = document.getElementById("comic");
 
-    function showPage(num) {
-      comic.src = `img/page${num}.jpg`;
-      comic.alt = `Страница ${num}`;
-    }
-
-    function nextPage() {
-      current = current < total ? current + 1 : 1;
-      showPage(current);
-    }
-
-    function prevPage() {
-      current = current > 1 ? current - 1 : total;
-      showPage(current);
-    }
+    // свайп влево/вправо
+    let startX = 0;
+    document.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
+    document.addEventListener("touchend", e => {
+      let endX = e.changedTouches[0].clientX;
+      if (endX < startX - 50) {
+        // вправо листаем
+        currentPage = (currentPage + 1) % pages.length;
+        comic.src = pages[currentPage];
+      } else if (endX > startX + 50) {
+        // влево листаем
+        currentPage = (currentPage - 1 + pages.length) % pages.length;
+        comic.src = pages[currentPage];
+      }
+    });
   </script>
 </body>
 </html>
