@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-<!DOCTYPE html>
-<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +7,10 @@
   <style>
     body {
       margin: 0;
-      background: #000;
+      background: black;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       overflow: hidden;
     }
@@ -20,43 +18,50 @@
       max-width: 100%;
       max-height: 100%;
     }
+    .nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3em;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
   </style>
 </head>
 <body>
-  <img id="comic" src="img/1758568408629.jpg" alt="Страница комикса">
+  <span class="nav prev" onclick="prev()">&#10094;</span>
+  <img id="comic" src="">
+  <span class="nav next" onclick="next()">&#10095;</span>
 
   <script>
-    // список твоих файлов из папки img
     const pages = [
-      "img/1758568408629.jpg",
-      "img/1758606897322.jpg",
-      "img/1758606901318.jpg",
-      "img/1758606904916.jpg",
-      "img/1758606916014.jpg",
-      "img/1758606921571.jpg",
-      "img/1758606927284.jpg",
-      "img/175860692666.jpg",
-      "img/page9.jpg"
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758568408629.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606897322.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606901318.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606904916.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606916014.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606921571.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606927284.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/1758606932666.jpg",
+      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/img/page9.jpg"
     ];
 
-    let currentPage = 0;
-    const comic = document.getElementById("comic");
+    let current = 0;
+    const img = document.getElementById("comic");
+    img.src = pages[current];
 
-    // свайп
-    let startX = 0;
-    document.addEventListener("touchstart", e => {
-      startX = e.touches[0].clientX;
-    });
-    document.addEventListener("touchend", e => {
-      let endX = e.changedTouches[0].clientX;
-      if (endX < startX - 50) {
-        currentPage = (currentPage + 1) % pages.length;
-        comic.src = pages[currentPage];
-      } else if (endX > startX + 50) {
-        currentPage = (currentPage - 1 + pages.length) % pages.length;
-        comic.src = pages[currentPage];
-      }
-    });
+    function next() {
+      current = (current + 1) % pages.length;
+      img.src = pages[current];
+    }
+
+    function prev() {
+      current = (current - 1 + pages.length) % pages.length;
+      img.src = pages[current];
+    }
   </script>
 </body>
 </html>
