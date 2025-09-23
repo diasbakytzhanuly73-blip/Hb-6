@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Комикс</title>
   <style>
-    body { margin:0; background:#000; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; font-family:sans-serif; }
+    body { margin:0; background:#000; display:flex; align-items:center; justify-content:center; height:100vh; }
     img { max-width:100%; max-height:100vh; object-fit:contain; }
     .nav { position:fixed; top:50%; transform:translateY(-50%); font-size:3rem; color:white; cursor:pointer; user-select:none; padding:10px; }
-    #prev { left:10px; } 
+    #prev { left:10px; }
     #next { right:10px; }
     .footer { position:fixed; bottom:10px; color:#aaa; font-size:14px; }
   </style>
@@ -42,19 +42,7 @@ function show(i){
   if(i<0) i = pages.length-1;
   if(i>=pages.length) i = 0;
   current = i;
-
-  const src = pages[current];
-  if(src.startsWith("MISSING")){
-    const n = src.split(":")[1];
-    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
-      `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
-        <rect width='100%' height='100%' fill='black'/>
-        <text x='50%' y='50%' fill='white' font-size='30' text-anchor='middle'>Страница ${n} отсутствует</text>
-      </svg>`
-    );
-  } else {
-    img.src = src;
-  }
+  img.src = pages[current];
   num.textContent = (current+1) + " / " + pages.length;
 }
 
