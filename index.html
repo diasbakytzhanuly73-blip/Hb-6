@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мой комикс</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Комикс</title>
   <style>
-    body {
-      margin: 0;
-      background: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-    img {
-      max-width: 100%;
-      max-height: 100vh;
-      display: block;
-      margin: auto;
-    }
-    .nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 3em;
-      color: white;
-      cursor: pointer;
-      user-select: none;
-      padding: 0 20px;
-    }
-    .left { left: 0; }
-    .right { right: 0; }
+    body { margin:0; background:#000; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; font-family:sans-serif; }
+    img { max-width:100%; max-height:100vh; object-fit:contain; }
+    .nav { position:fixed; top:50%; transform:translateY(-50%); font-size:3rem; color:white; cursor:pointer; user-select:none; padding:10px; }
+    #prev { left:10px; } 
+    #next { right:10px; }
+    .footer { position:fixed; bottom:10px; color:#aaa; font-size:14px; }
   </style>
 </head>
 <body>
-  <div class="nav left" onclick="prev()">&#10094;</div>
-  <img id="comic" src="" alt="comic page">
-  <div class="nav right" onclick="next()">&#10095;</div>
+  <div id="prev" class="nav">&#10094;</div>
+  <img id="comicimg" src="" alt="Комикс">
+  <div id="next" class="nav">&#10095;</div>
+  <div class="footer"><span id="pagenum"></span></div>
 
-  <script>
-    // Используем raw-ссылки с твоего репо
-    const pages = [
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606893028.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606897322.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606901318.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606904916.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606909633.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758606932666.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758657357295.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/1758657439907.jpg",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/%D0%A7%D1%82%D0%BE%20%D1%81%D0%BB%D1%83%D1%87%D0%B8%D0%BB%D0%BE%D1%81%D1%8C_20250924_010356_0000.png",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/%D0%AD%D1%82%D0%BE%20%D0%B1%D1%8B%D0%BB%20%D0%B2%D1%81%D0%B5%D0%B3%D0%BE%20%D0%BB%D0%B8%D1%88%D1%8C...%20%D0%BA%D0%BE%D1%88%D0%BC%D0%B0%D1%80_20250924_010642_0000.png",
-      "https://raw.githubusercontent.com/diasbakytzhanuly73-blip/Hb-6/main/wigs/%D1%8F%20%D1%80%D1%8F%D0%B4%D0%BE%D0%BC_20250924_010718_0000.png"
-    ];
+<script>
+const pages = [
+  "wigs/page1.jpg",
+  "MISSING:2",
+  "wigs/page3.jpg",
+  "wigs/page4.jpg",
+  "MISSING:5",
+  "wigs/page6.jpg",
+  "wigs/Page7.jpg",
+  "wigs/page8.png",
+  "wigs/page9.png",
+  "wigs/page10.jpg",
+  "wigs/page11.png",
+  "wigs/page12.jpg",
+  "wigs/page13.jpg"
+];
 
-    let current = 0;
-    const img = document.getElementById("comic");
+let current = 0;
+const img = document.getElementById("comicimg");
+const num = document.getElementById("pagenum");
 
-    function showPage(n) {
-      current = (n + pages.length) % pages.length;
-      img.src = pages[current];
-    }
+function show(i){
+  if(i<0) i = pages.length-1;
+  if(i>=pages.length) i = 0;
+  current = i;
 
-    function next() { showPage(current + 1); }
-    function prev() { showPage(current - 1); }
+  const src = pages[current];
+  if(src.startsWith("MISSING")){
+    const n = src.split(":")[1];
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+      `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+        <rect width='100%' height='100%' fill='black'/>
+        <text x='50%' y='50%' fill='white' font-size='30' text-anchor='middle'>Страница ${n} отсутствует</text>
+      </svg>`
+    );
+  } else {
+    img.src = src;
+  }
+  num.textContent = (current+1) + " / " + pages.length;
+}
 
-    // Показываем первую страницу при загрузке
-    showPage(0);
-  </script>
+document.getElementById("prev").onclick = ()=> show(current-1);
+document.getElementById("next").onclick = ()=> show(current+1);
+document.addEventListener("keydown", e=>{
+  if(e.key==="ArrowRight") show(current+1);
+  if(e.key==="ArrowLeft") show(current-1);
+});
+
+show(0);
+</script>
 </body>
 </html>
